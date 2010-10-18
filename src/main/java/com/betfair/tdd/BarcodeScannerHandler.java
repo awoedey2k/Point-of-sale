@@ -1,6 +1,6 @@
 package com.betfair.tdd;
 
-public class BarcodeScanner {
+public class BarcodeScannerHandler {
 
 	private ScannerListener posSystem;
 	

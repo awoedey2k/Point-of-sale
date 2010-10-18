@@ -7,16 +7,17 @@ import org.junit.Test;
 
 public class BarCodeScanTest {
 
+	@SuppressWarnings("unused")
 	private POSSystem pos;
 	
 	private Display display;
-	private BarcodeScanner scanner;
+	private BarcodeScannerHandler scanner;
 	private PriceService priceService;
 	
 	
 	@Before
 	public void setup() {
-		scanner = new BarcodeScanner();
+		scanner = new BarcodeScannerHandler();
 		display = new Display();
 		priceService = new PriceServiceImpl();
 		
@@ -30,6 +31,7 @@ public class BarCodeScanTest {
 		
 		assertEquals(1d, display.getPrice().getPrice());
 		assertEquals(0.13d, display.getPrice().getTax());
+		assertEquals(display.getPrice(),"1.13 ron");
 	}
 	
 	@Test
@@ -39,6 +41,7 @@ public class BarCodeScanTest {
 		
 		assertEquals(2d, display.getPrice().getPrice());
 		assertEquals(0.05d, display.getPrice().getTax());
+		assertEquals(display.getPrice().toString(),"2.05 ron");
 	}
 	
 	@Test

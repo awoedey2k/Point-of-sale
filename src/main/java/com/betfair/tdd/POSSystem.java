@@ -7,9 +7,9 @@ public class POSSystem implements ScannerListener{
 	private Display display;
 	
 	@SuppressWarnings("unused")
-	private BarcodeScanner scanner;
+	private BarcodeScannerHandler scanner;
 	
-	public POSSystem(BarcodeScanner scanner, Display display,
+	public POSSystem(BarcodeScannerHandler scanner, Display display,
 			PriceService priceService) {
 		this.scanner = scanner;
 		scanner.setListener(this);

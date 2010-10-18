@@ -40,7 +40,15 @@ public class Price {
 		
 		if (price == 0d) {
 			return errorCode;
-		} else return "" + price + tax + " ron";
+		} else return "" + (price + tax) + " ron";
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof String) {
+			return this.toString().equals(obj.toString());
+		} else return super.equals(obj);
 	}
 	
 	
