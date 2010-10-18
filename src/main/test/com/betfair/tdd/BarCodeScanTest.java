@@ -7,24 +7,33 @@ import org.junit.Test;
 
 public class BarCodeScanTest {
 
+	private POSSystem pos;
 	
 	private Display display;
-	private POSSystem pos;
+	private BarcodeScanner scanner;
+	private PriceService priceService;
 	
 	
 	@Before
 	public void setup() {
+		
+		pos = new POSSystem();
+
+		
+		scanner = new BarcodeScanner();
 		display = new Display();
-		PriceRepo repo = new PriceRepo();
+		priceService = new PriceServiceImpl();
 		
-		pos = new POSSystem(display, repo);
 		
+		pos.setScanner(scanner);
+		pos.setDisplay(display);
+		pos.setPriceService(priceService);
 	}
 	
 	@Test
 	public void testBarcodeScan1() {
 		
-		pos.scan("1a2s3d");
+		scanner.scan("1a2s3d");
 		
 		assertEquals(display.getPrice(), "1.0");
 	}
@@ -32,16 +41,15 @@ public class BarCodeScanTest {
 	@Test
 	public void testBarcodeScan2() {
 		
-		pos.scan("5g6h7k");
+		scanner.scan("5g6h7k");
 		
 		assertEquals(display.getPrice(), "2.0");
 	}
 	
 	@Test
-	public void testException() throws POSException{
-		pos.scan("oops");
+	public void testException() {
+		scanner.scan("oops");
 		assertEquals(display.getPrice(), "no code found");
-
 	}
 
 }

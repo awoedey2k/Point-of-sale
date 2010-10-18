@@ -1,12 +1,10 @@
 package com.betfair.tdd;
 
-public class Display  {
+public class Display {
 
-
-	private String price;
-
+	private String price; 
+	
 	public String getPrice() {
-
 		return price;
 	}
 

@@ -1,38 +1,31 @@
 package com.betfair.tdd;
 
-public class POSSystem {
+public class POSSystem implements ScannerListener{
 
+	private PriceService priceService;
+	
 	private Display display;
-	private PriceRepo repo;
-
-	public POSSystem(Display display, PriceRepo repo) {
-		this.display = display;
-		this.repo = repo;
-	}
-
-	public Display getDisplay() {
-		return display;
+	
+	@SuppressWarnings("unused")
+	private BarcodeScanner scanner;
+	
+	public void setScanner(BarcodeScanner scanner) {
+		this.scanner = scanner;
+		scanner.setListener(this);
 	}
 
 	public void setDisplay(Display display) {
-		this.display = display;
-	}
-	
-
-	public PriceRepo getRepo() {
-		return repo;
+		this.display = display;		
 	}
 
-	public void setRepo(PriceRepo repo) {
-		this.repo = repo;
+	public void setPriceService(PriceService priceService) {
+		this.priceService = priceService;	
 	}
 
-	public void scan(String barcode) {
-		try {
-			display.setPrice(repo.getPrice(barcode));
-			
- 		} catch (Exception e ) {
- 			display.setPrice("no code found");
- 		}
+	@Override
+	public void barcodeScanned(ScannerEvent event) {
+		String price = priceService.getPrice(event.getBarcode());
+		display.setPrice(price);
 	}
+
 }

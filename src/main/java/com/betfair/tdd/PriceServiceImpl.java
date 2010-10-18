@@ -3,7 +3,8 @@ package com.betfair.tdd;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PriceRepo {
+public class PriceServiceImpl implements PriceService {
+
 
 	private static Map<String,String> map = new HashMap<String, String>();
 	
@@ -18,4 +19,6 @@ public class PriceRepo {
 		}
 		else return "no code found";
 	}
+
+
 }
