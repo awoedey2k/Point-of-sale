@@ -3,21 +3,35 @@ package com.betfair.tdd;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.betfair.tdd.tax.TaxCalculator;
+
 public class PriceServiceImpl implements PriceService {
 
-
-	private static Map<String,String> map = new HashMap<String, String>();
+	private TaxCalculator taxCalculator = new TaxCalculator();
+	
+	private static Map<String,Long> map = new HashMap<String, Long>();
 	
 	static {
-		map.put("1a2s3d", "1.0");
-		map.put("5g6h7k", "2.0");
+		map.put("1a2s3d", 1L);
+		map.put("5g6h7k", 2L);
+		
 	}
 	
-	public String getPrice(String barcode) {
+	public PriceServiceImpl() {
+		taxCalculator = new TaxCalculator();
+	}
+
+	public Price getPrice(String barcode) {
 		if (map.get(barcode) != null) {
-			return map.get(barcode);
+			double price = map.get(barcode);
+			return new Price(price,addTax(barcode));
 		}
-		else return "no code found";
+		else return new Price("Product not found for " + barcode);
+	}
+
+	private double addTax(String barcode) {
+		double tax = taxCalculator.getTax(barcode);
+		return tax;
 	}
 
 

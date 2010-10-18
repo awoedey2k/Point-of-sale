@@ -9,22 +9,17 @@ public class POSSystem implements ScannerListener{
 	@SuppressWarnings("unused")
 	private BarcodeScanner scanner;
 	
-	public void setScanner(BarcodeScanner scanner) {
+	public POSSystem(BarcodeScanner scanner, Display display,
+			PriceService priceService) {
 		this.scanner = scanner;
 		scanner.setListener(this);
-	}
-
-	public void setDisplay(Display display) {
 		this.display = display;		
-	}
-
-	public void setPriceService(PriceService priceService) {
 		this.priceService = priceService;	
 	}
 
 	@Override
 	public void barcodeScanned(ScannerEvent event) {
-		String price = priceService.getPrice(event.getBarcode());
+		Price price = priceService.getPrice(event.getBarcode());
 		display.setPrice(price);
 	}
 

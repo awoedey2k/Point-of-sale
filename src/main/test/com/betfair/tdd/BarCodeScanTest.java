@@ -16,18 +16,11 @@ public class BarCodeScanTest {
 	
 	@Before
 	public void setup() {
-		
-		pos = new POSSystem();
-
-		
 		scanner = new BarcodeScanner();
 		display = new Display();
 		priceService = new PriceServiceImpl();
 		
-		
-		pos.setScanner(scanner);
-		pos.setDisplay(display);
-		pos.setPriceService(priceService);
+		pos = new POSSystem(scanner,display,priceService);
 	}
 	
 	@Test
@@ -35,7 +28,8 @@ public class BarCodeScanTest {
 		
 		scanner.scan("1a2s3d");
 		
-		assertEquals(display.getPrice(), "1.0");
+		assertEquals(1d, display.getPrice().getPrice());
+		assertEquals(0.13d, display.getPrice().getTax());
 	}
 	
 	@Test
@@ -43,13 +37,14 @@ public class BarCodeScanTest {
 		
 		scanner.scan("5g6h7k");
 		
-		assertEquals(display.getPrice(), "2.0");
+		assertEquals(2d, display.getPrice().getPrice());
+		assertEquals(0.05d, display.getPrice().getTax());
 	}
 	
 	@Test
 	public void testException() {
 		scanner.scan("oops");
-		assertEquals(display.getPrice(), "no code found");
+		assertEquals("Product not found for oops", display.getPrice().toString());
 	}
 
 }

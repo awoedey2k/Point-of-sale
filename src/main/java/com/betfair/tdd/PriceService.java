@@ -2,5 +2,5 @@ package com.betfair.tdd;
 
 public interface PriceService {
 
-	public String getPrice(String barCode);
+	public Price getPrice(String barCode);
 }

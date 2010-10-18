@@ -2,13 +2,13 @@ package com.betfair.tdd;
 
 public class Display {
 
-	private String price; 
+	private Price price; 
 	
-	public String getPrice() {
+	public Price getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Price price) {
 		this.price = price;
 	}
 
